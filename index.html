@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lean in 4 Weeks</title>
+<meta name="description" content="4-week fat-loss gym plan, Boojum-friendly meal plan and skincare routine.">
+<style>
+  :root {
+    --bg: #f6f5f2;
+    --surface: #ffffff;
+    --surface-2: #efede8;
+    --text: #1c1b19;
+    --muted: #66625b;
+    --border: #dedad2;
+    --accent: #c2410c;
+    --accent-soft: #fde7da;
+    --good: #15803d;
+    --good-soft: #dcfce7;
+    --warn: #a16207;
+    --warn-soft: #fef3c7;
+    --bad: #b91c1c;
+    --bad-soft: #fee2e2;
+    --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141312;
+      --surface: #1e1d1b;
+      --surface-2: #2a2826;
+      --text: #f1efea;
+      --muted: #a8a39a;
+      --border: #3a3734;
+      --accent: #fb923c;
+      --accent-soft: #3b2416;
+      --good: #4ade80;
+      --good-soft: #14301f;
+      --warn: #facc15;
+      --warn-soft: #362d10;
+      --bad: #f87171;
+      --bad-soft: #3a1818;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 16px 64px; }
+  header { padding: 32px 0 8px; }
+  h1 { font-size: 2rem; line-height: 1.15; margin: 0 0 8px; letter-spacing: -0.02em; }
+  h2 { font-size: 1.35rem; margin: 32px 0 12px; letter-spacing: -0.01em; }
+  h3 { font-size: 1.05rem; margin: 0 0 8px; }
+  p { margin: 0 0 12px; }
+  .lede { color: var(--muted); font-size: 1.05rem; max-width: 60ch; }
+  .muted { color: var(--muted); }
+  small, .small { font-size: 0.875rem; }
+
+  nav.tabs {
+    position: sticky; top: 0; z-index: 5;
+    background: var(--bg);
+    display: flex; gap: 6px; overflow-x: auto;
+    padding: 12px 0; margin-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    scrollbar-width: none;
+  }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs button {
+    flex: 0 0 auto;
+    font: inherit; font-size: 0.95rem; font-weight: 600;
+    padding: 8px 14px; border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface); color: var(--text);
+    cursor: pointer;
+  }
+  nav.tabs button[aria-selected="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+  section[role="tabpanel"][hidden] { display: none; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+  .grid .card { margin-bottom: 0; }
+  .callout { border-left: 4px solid var(--accent); background: var(--accent-soft); border-radius: 10px; padding: 12px 14px; margin: 12px 0; }
+  .tag {
+    display: inline-block; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--muted);
+  }
+  .tag.good { background: var(--good-soft); color: var(--good); }
+  .tag.warn { background: var(--warn-soft); color: var(--warn); }
+  .tag.bad { background: var(--bad-soft); color: var(--bad); }
+  .tag.accent { background: var(--accent-soft); color: var(--accent); }
+
+  ul, ol { margin: 0 0 12px; padding-left: 20px; }
+  li { margin-bottom: 4px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
+  td.num { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .table-scroll { overflow-x: auto; }
+
+  .week-picker { display: flex; gap: 6px; flex-wrap: wrap; margin: 8px 0 12px; }
+  .week-picker button {
+    font: inherit; font-weight: 600; font-size: 0.9rem;
+    padding: 6px 12px; border-radius: 10px; cursor: pointer;
+    border: 1px solid var(--border); background: var(--surface); color: var(--text);
+  }
+  .week-picker button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  details.day { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; }
+  details.day > summary {
+    list-style: none; cursor: pointer; padding: 14px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  details.day > summary::-webkit-details-marker { display: none; }
+  details.day > summary .d { font-weight: 700; }
+  details.day > summary .s { color: var(--muted); font-size: 0.9rem; }
+  details.day > summary::after { content: "+"; font-size: 1.3rem; color: var(--muted); }
+  details.day[open] > summary::after { content: "–"; }
+  details.day .body { padding: 0 16px 14px; }
+
+  form.calc { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); align-items: end; }
+  label { display: grid; gap: 4px; font-size: 0.9rem; font-weight: 600; }
+  input, select {
+    font: inherit; padding: 10px 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg); color: var(--text); width: 100%;
+  }
+  .stats { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); margin-top: 14px; }
+  .stat { background: var(--surface-2); border-radius: 12px; padding: 12px; }
+  .stat .v { font-size: 1.5rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .stat .k { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+  .check { list-style: none; padding: 0; margin: 0; }
+  .check li { border-bottom: 1px solid var(--border); margin: 0; }
+  .check li:last-child { border-bottom: 0; }
+  .check label { display: flex; gap: 12px; align-items: center; font-weight: 500; font-size: 1rem; padding: 10px 0; cursor: pointer; }
+  .check input { width: 22px; height: 22px; accent-color: var(--accent); flex: 0 0 auto; }
+  .progress { height: 8px; background: var(--surface-2); border-radius: 999px; overflow: hidden; margin: 8px 0 4px; }
+  .progress > div { height: 100%; background: var(--accent); width: 0; transition: width .2s; }
+
+  .step { display: flex; gap: 12px; align-items: flex-start; }
+  .step .n {
+    flex: 0 0 28px; height: 28px; border-radius: 50%;
+    background: var(--accent); color: #fff; font-weight: 800; font-size: 0.9rem;
+    display: grid; place-items: center;
+  }
+  .product { font-weight: 700; }
+  footer { margin-top: 40px; color: var(--muted); font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="tag accent">4-week plan</span>
+    <h1>Lean, tight &amp; less puffy</h1>
+    <p class="lede">Gym plan, Boojum-friendly food plan and a skincare routine. The goal: lose fat, tighten the belly, sides, chest and arms, and de-puff the face. Leaner, not bulky.</p>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Plan sections">
+    <button role="tab" aria-selected="true" aria-controls="tab-start" id="t-start">Start here</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-gym" id="t-gym">Gym plan</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-food" id="t-food">Food plan</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-face" id="t-face">Face &amp; skin</button>
+    <button role="tab" aria-selected="false" aria-controls="tab-today" id="t-today">Today</button>
+  </nav>
+
+  <!-- START HERE -->
+  <section role="tabpanel" id="tab-start" aria-labelledby="t-start">
+    <h2>What 4 weeks can really do</h2>
+    <div class="grid">
+      <div class="card">
+        <span class="tag good">Realistic in 4 weeks</span>
+        <ul style="margin-top:10px">
+          <li>Face noticeably less puffy, often within 7–14 days (salt, alcohol, sleep and water matter most)</li>
+          <li>About 2–4 kg down on the scale</li>
+          <li>Waist 2–5 cm smaller</li>
+          <li>Stronger, tighter-looking chest, arms and shoulders</li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="tag warn">Takes longer</span>
+        <ul style="margin-top:10px">
+          <li>Fully flat belly and visible abs: 3–6 months of the same habits</li>
+          <li>You can't burn fat from one spot. Belly, sides and chest fat go as your overall body fat drops, and the training shapes what's underneath.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout">
+      <strong>The formula:</strong> a moderate calorie deficit, high protein, 4 lifting sessions a week, daily steps, and less salt and alcohol. Weeks 1–4 build the habit. Then you keep going.
+    </div>
+
+    <h2>Your numbers</h2>
+    <div class="card">
+      <form class="calc" id="calc" onsubmit="return false">
+        <label>Weight (kg)
+          <input type="number" id="kg" inputmode="decimal" min="40" max="250" step="0.1" placeholder="e.g. 90">
+        </label>
+        <label>Activity
+          <select id="act">
+            <option value="28">Mostly sitting + gym</option>
+            <option value="31" selected>On feet at work (Boojum shifts) + gym</option>
+            <option value="33">Very active job + gym</option>
+          </select>
+        </label>
+      </form>
+      <div class="stats" id="stats">
+        <div class="stat"><div class="k">Daily calories</div><div class="v" id="o-kcal">—</div></div>
+        <div class="stat"><div class="k">Protein</div><div class="v" id="o-pro">—</div></div>
+        <div class="stat"><div class="k">Water</div><div class="v" id="o-water">—</div></div>
+        <div class="stat"><div class="k">Daily steps</div><div class="v">8–10k</div></div>
+      </div>
+      <p class="small muted" style="margin-top:12px">Estimate = maintenance minus about 500 kcal. Aim to lose 0.5–1% of your bodyweight a week. If the scale hasn't moved after 2 weeks, cut another 150–200 kcal or add 2,000 steps. If you're losing more than 1.5 kg a week after week 1, eat a bit more.</p>
+    </div>
+
+    <h2>Track it (once a week)</h2>
+    <div class="grid">
+      <div class="card"><h3>Weigh in</h3><p class="small muted">Every morning, after the toilet, before food. Use the weekly average, because daily numbers jump around with salt and water.</p></div>
+      <div class="card"><h3>Waist</h3><p class="small muted">Tape around the belly button, relaxed, every Monday.</p></div>
+      <div class="card"><h3>Photos</h3><p class="small muted">Front, side and back in the same spot, same light and same time as your video. Compare week 1 to week 4.</p></div>
+    </div>
+  </section>
+
+  <!-- GYM -->
+  <section role="tabpanel" id="tab-gym" aria-labelledby="t-gym" hidden>
+    <h2>Weekly schedule</h2>
+    <div class="card table-scroll">
+      <table>
+        <thead><tr><th>Day</th><th>Session</th><th>Time</th></tr></thead>
+        <tbody>
+          <tr><td>Mon</td><td><strong>Upper A</strong>: chest, shoulders, triceps</td><td class="num">60 min</td></tr>
+          <tr><td>Tue</td><td><strong>Lower A</strong> + core</td><td class="num">55 min</td></tr>
+          <tr><td>Wed</td><td><strong>Conditioning</strong>: intervals + abs</td><td class="num">35 min</td></tr>
+          <tr><td>Thu</td><td><strong>Upper B</strong>: back, biceps, arms</td><td class="num">60 min</td></tr>
+          <tr><td>Fri</td><td><strong>Lower B</strong> + core</td><td class="num">55 min</td></tr>
+          <tr><td>Sat</td><td><strong>Long walk</strong>, incline treadmill, or 5-a-side / any sport</td><td class="num">45 min</td></tr>
+          <tr><td>Sun</td><td><strong>Rest</strong>. Easy walk, stretch</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+      <p class="small muted" style="margin:10px 0 0">Shifts clash? Keep the order and slide the days. Just don't do the same session two days in a row.</p>
+    </div>
+
+    <h2>Pick your week</h2>
+    <div class="week-picker" role="group" aria-label="Week">
+      <button type="button" data-week="1" aria-pressed="true">Week 1</button>
+      <button type="button" data-week="2" aria-pressed="false">Week 2</button>
+      <button type="button" data-week="3" aria-pressed="false">Week 3</button>
+      <button type="button" data-week="4" aria-pressed="false">Week 4</button>
+    </div>
+    <div class="callout" id="week-note"></div>
+
+    <p class="small muted">Every session: 5–8 min warm-up (bike or brisk incline walk, then 1–2 light sets of the first exercise). Pick a weight where the last 2 reps are hard but your form stays clean. When you hit the top of the rep range on every set, go up a weight next time.</p>
+
+    <details class="day" open>
+      <summary><span><span class="d">Mon · Upper A</span><br><span class="s">Chest, shoulders, triceps</span></span></summary>
+      <div class="body table-scroll">
+        <table>
+          <thead><tr><th>Exercise</th><th>Sets × reps</th><th>Rest</th></tr></thead>
+          <tbody>
+            <tr><td>Dumbbell bench press</td><td class="num" data-sets="3">3 × 8–10</td><td class="num">90s</td></tr>
+            <tr><td>Incline dumbbell press <span class="muted small">(upper chest)</span></td><td class="num" data-sets="3">3 × 10–12</td><td class="num">90s</td></tr>
+            <tr><td>Seated cable row</td><td class="num">3 × 10–12</td><td class="num">75s</td></tr>
+            <tr><td>Seated dumbbell shoulder press</td><td class="num">3 × 10</td><td class="num">75s</td></tr>
+            <tr><td>Lateral raises</td><td class="num">3 × 12–15</td><td class="num">60s</td></tr>
+            <tr><td>Cable tricep pushdown</td><td class="num">3 × 12–15</td><td class="num">60s</td></tr>
+            <tr><td><strong>Finisher:</strong> incline treadmill walk</td><td class="num" data-finisher>10 min</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="day">
+      <summary><span><span class="d">Tue · Lower A + core</span><br><span class="s">Legs burn the most calories</span></span></summary>
+      <div class="body table-scroll">
+        <table>
+          <thead><tr><th>Exercise</th><th>Sets × reps</th><th>Rest</th></tr></thead>
+          <tbody>
+            <tr><td>Goblet squat</td><td class="num" data-sets="3">3 × 10</td><td class="num">90s</td></tr>
+            <tr><td>Dumbbell Romanian deadlift</td><td class="num" data-sets="3">3 × 10</td><td class="num">90s</td></tr>
+            <tr><td>Walking lunges</td><td class="num">3 × 10 / leg</td><td class="num">75s</td></tr>
+            <tr><td>Lying or seated leg curl</td><td class="num">3 × 12</td><td class="num">60s</td></tr>
+            <tr><td>Standing calf raise</td><td class="num">3 × 15</td><td class="num">45s</td></tr>
+            <tr><td>Plank</td><td class="num">3 × 30–45s</td><td class="num">45s</td></tr>
+            <tr><td>Dead bug</td><td class="num">3 × 10 / side</td><td class="num">45s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="day">
+      <summary><span><span class="d">Wed · Conditioning</span><br><span class="s">Intervals + ab circuit</span></span></summary>
+      <div class="body">
+        <h3>Intervals (bike, rower or incline treadmill)</h3>
+        <ol>
+          <li>5 min easy warm-up</li>
+          <li><strong id="intervals">8 rounds</strong>: 30s hard (8/10 effort) then 90s easy</li>
+          <li>5 min easy cool-down</li>
+        </ol>
+        <h3>Ab circuit, 3 rounds, 60s rest between rounds</h3>
+        <ul>
+          <li>Cable crunch × 15</li>
+          <li>Bicycle crunch × 20 total</li>
+          <li>Side plank × 30s each side</li>
+          <li>Mountain climbers × 30s</li>
+        </ul>
+        <p class="small muted">Abs make the belly tighter and flatter. Fat loss from the food plan is what reveals them.</p>
+      </div>
+    </details>
+
+    <details class="day">
+      <summary><span><span class="d">Thu · Upper B</span><br><span class="s">Back, biceps, arms</span></span></summary>
+      <div class="body table-scroll">
+        <table>
+          <thead><tr><th>Exercise</th><th>Sets × reps</th><th>Rest</th></tr></thead>
+          <tbody>
+            <tr><td>Lat pulldown</td><td class="num" data-sets="3">3 × 10</td><td class="num">90s</td></tr>
+            <tr><td>Chest-supported dumbbell row</td><td class="num" data-sets="3">3 × 10–12</td><td class="num">90s</td></tr>
+            <tr><td>Push-ups <span class="muted small">(hands on bench if needed)</span></td><td class="num">3 × max (stop 1–2 short of failure)</td><td class="num">75s</td></tr>
+            <tr><td>Cable face pull</td><td class="num">3 × 15</td><td class="num">60s</td></tr>
+            <tr><td>Dumbbell curl</td><td class="num">3 × 12</td><td class="num">60s</td></tr>
+            <tr><td>Hammer curl</td><td class="num">2 × 12</td><td class="num">60s</td></tr>
+            <tr><td>Overhead dumbbell tricep extension</td><td class="num">3 × 12</td><td class="num">60s</td></tr>
+            <tr><td><strong>Finisher:</strong> bike, 20s fast / 40s easy</td><td class="num" data-finisher>10 min</td><td class="num">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="day">
+      <summary><span><span class="d">Fri · Lower B + core</span><br><span class="s">Glutes, legs, obliques</span></span></summary>
+      <div class="body table-scroll">
+        <table>
+          <thead><tr><th>Exercise</th><th>Sets × reps</th><th>Rest</th></tr></thead>
+          <tbody>
+            <tr><td>Leg press</td><td class="num" data-sets="3">3 × 12</td><td class="num">90s</td></tr>
+            <tr><td>Barbell or machine hip thrust</td><td class="num" data-sets="3">3 × 10</td><td class="num">90s</td></tr>
+            <tr><td>Dumbbell step-ups</td><td class="num">3 × 10 / leg</td><td class="num">75s</td></tr>
+            <tr><td>Leg extension</td><td class="num">2 × 15</td><td class="num">60s</td></tr>
+            <tr><td>Cable woodchop <span class="muted small">(sides / love handles)</span></td><td class="num">3 × 12 / side</td><td class="num">45s</td></tr>
+            <tr><td>Hanging knee raise</td><td class="num">3 × 10–12</td><td class="num">60s</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <details class="day">
+      <summary><span><span class="d">Sat · Long walk</span><br><span class="s">Easy, steady fat burning</span></span></summary>
+      <div class="body">
+        <p><span id="sat-walk">40 min</span> brisk walk (Salthill prom and back works) or an incline treadmill at 8–12% and 5–5.5 km/h. You should be able to talk, but not sing. Any sport you enjoy counts too.</p>
+      </div>
+    </details>
+  </section>
+
+  <!-- FOOD -->
+  <section role="tabpanel" id="tab-food" aria-labelledby="t-food" hidden>
+    <h2>The rules</h2>
+    <div class="grid">
+      <div class="card"><h3>Protein every meal</h3><p class="small muted">30–50 g per meal. It keeps you full and keeps muscle while fat comes off.</p></div>
+      <div class="card"><h3>No liquid calories</h3><p class="small muted">Water, black coffee, tea, zero-sugar drinks. Cut fizzy drinks, juice and alcohol for the 4 weeks. Alcohol is a big cause of face puffiness.</p></div>
+      <div class="card"><h3>Watch the salt</h3><p class="small muted">Mexican food is salty, and salt holds water in the face. Drink more water and eat potassium foods (banana, potatoes, beans, spinach).</p></div>
+      <div class="card"><h3>One treat meal a week</h3><p class="small muted">Full burrito, a takeaway, whatever you like. Enjoy it, then straight back to the plan.</p></div>
+    </div>
+
+    <h2>Ordering at Boojum</h2>
+    <p class="muted small">Calories are rough estimates for planning. Portions vary.</p>
+    <div class="card">
+      <span class="tag good">Daily go-to · ~550–700 kcal · 45–60 g protein</span>
+      <h3 style="margin-top:10px">The lean bowl</h3>
+      <ul>
+        <li><strong>Burrito bowl</strong>, not a burrito (the big flour tortilla alone is ~300 kcal)</li>
+        <li>Chicken, or steak. <strong>Double meat</strong> if you can</li>
+        <li><strong>Half</strong> scoop of rice (or none on rest days)</li>
+        <li>Black or pinto beans</li>
+        <li>Lots of lettuce, plus fajita veg or peppers and onions if there's any</li>
+        <li>Pico de gallo / mild / salsa verde / hot salsa: as much as you like</li>
+        <li>Pick <strong>one</strong>: cheese <em>or</em> sour cream <em>or</em> guac. Not all three.</li>
+      </ul>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="tag good">Also good</span>
+        <h3 style="margin-top:10px">Tacos</h3>
+        <p class="small muted">Chicken or steak, salsa, lettuce, skip the sour cream. ~450–600 kcal.</p>
+      </div>
+      <div class="card">
+        <span class="tag good">Also good</span>
+        <h3 style="margin-top:10px">Salad bowl</h3>
+        <p class="small muted">Lettuce base, double meat, beans, salsa, a little cheese. ~450–550 kcal.</p>
+      </div>
+      <div class="card">
+        <span class="tag warn">Treat meal only</span>
+        <h3 style="margin-top:10px">Full burrito</h3>
+        <p class="small muted">Rice, cheese, sour cream, guac: ~1,000–1,200 kcal. Once a week.</p>
+      </div>
+      <div class="card">
+        <span class="tag bad">Skip for 4 weeks</span>
+        <h3 style="margin-top:10px">Nachos, chips &amp; dips</h3>
+        <p class="small muted">Nachos can be 1,200+ kcal. Grabbing tortilla chips on shift adds up fast.</p>
+      </div>
+    </div>
+
+    <h2>7-day meal plan</h2>
+    <p class="muted small">Roughly 2,000–2,300 kcal a day. Adjust the portions of rice, potatoes and oats to hit the calories in your numbers on the Start tab. Have the Boojum meal at whichever point your shift falls, and swap lunch and dinner freely.</p>
+    <div class="card table-scroll">
+      <table>
+        <thead><tr><th>Day</th><th>Breakfast</th><th>Shift meal</th><th>Snack</th><th>Dinner</th></tr></thead>
+        <tbody>
+          <tr><td>Mon</td><td>3 eggs scrambled, 2 slices wholegrain toast, orange</td><td>Lean bowl: chicken</td><td>Protein shake + banana</td><td>Chicken breast, baby potatoes, broccoli</td></tr>
+          <tr><td>Tue</td><td>Overnight oats: 50 g oats, 200 g Greek yoghurt / skyr, berries</td><td>Lean bowl: steak</td><td>2 boiled eggs + apple</td><td>Salmon fillet, rice, green beans</td></tr>
+          <tr><td>Wed</td><td>Skyr + granola (small handful) + berries</td><td>Chicken tacos, salsa, no sour cream</td><td>Protein shake</td><td>Turkey mince chilli with beans and peppers (homemade, light on salt)</td></tr>
+          <tr><td>Thu</td><td>3-egg omelette with spinach and peppers, 1 toast</td><td>Lean bowl: chicken, no rice</td><td>Tuna on 2 rice cakes</td><td>Lean beef stir-fry with veg and noodles</td></tr>
+          <tr><td>Fri</td><td>Overnight oats + whey scoop</td><td>Salad bowl: double chicken</td><td>Skyr + banana</td><td>Chicken fajitas at home: 2 wraps, peppers, onions, salsa</td></tr>
+          <tr><td>Sat</td><td>Eggs, beans, wholegrain toast</td><td><strong>Treat meal</strong> (enjoy it)</td><td>Fruit</td><td>Light: omelette + salad</td></tr>
+          <tr><td>Sun</td><td>Greek yoghurt, berries, honey</td><td>Roast chicken, potatoes, veg</td><td>Protein shake</td><td>Batch cook for the week: chicken + rice + veg boxes</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Shopping list</h2>
+    <div class="grid">
+      <div class="card"><h3>Protein</h3><p class="small muted">Chicken breast, lean beef / turkey mince (5%), salmon, eggs, tinned tuna, skyr / Greek yoghurt (Lidl &amp; Aldi high-protein ones are cheap), whey protein</p></div>
+      <div class="card"><h3>Carbs</h3><p class="small muted">Oats, rice, baby potatoes, wholegrain bread, rice cakes, wraps, bananas, apples, oranges, berries (frozen is fine)</p></div>
+      <div class="card"><h3>Veg</h3><p class="small muted">Broccoli, spinach, peppers, onions, green beans, salad bags, frozen stir-fry mix, tinned beans</p></div>
+      <div class="card"><h3>Flavour (low calorie)</h3><p class="small muted">Salsa, hot sauce, lime, garlic, fajita spice, low-salt stock, spray oil</p></div>
+    </div>
+  </section>
+
+  <!-- FACE -->
+  <section role="tabpanel" id="tab-face" aria-labelledby="t-face" hidden>
+    <h2>De-puff the face</h2>
+    <p class="muted">Most facial puffiness is water and overall body fat, not skin. Fix these first, and the skincare does the rest.</p>
+    <div class="grid">
+      <div class="card"><h3>Salt down</h3><p class="small muted">The biggest one with Mexican food. Go easy on extra cheese and salty sauces, and don't add salt at home.</p></div>
+      <div class="card"><h3>Water up</h3><p class="small muted">2.5–3 L a day. More water means your body holds less of it.</p></div>
+      <div class="card"><h3>No alcohol</h3><p class="small muted">4 weeks off. You'll see the difference in the face in about a week.</p></div>
+      <div class="card"><h3>Sleep 7–9 h</h3><p class="small muted">Sleep on your back with a slightly higher pillow so fluid doesn't pool in the face overnight.</p></div>
+      <div class="card"><h3>Cold in the morning</h3><p class="small muted">Splash with cold water or use an ice roller for 1–2 min. It quickly tightens up a puffy morning face.</p></div>
+      <div class="card"><h3>Lose the body fat</h3><p class="small muted">The gym and food plans slim the face down too: cheeks and jawline get sharper as body fat drops.</p></div>
+    </div>
+
+    <h2>Skincare routine</h2>
+    <p class="muted small">All available at Boots or any Irish pharmacy. About €60–90 for the whole set, and it lasts 2–3 months. Patch test anything new on your jaw for a day first.</p>
+
+    <div class="card">
+      <span class="tag accent">Morning · 3 min</span>
+      <div style="display:grid;gap:14px;margin-top:12px">
+        <div class="step"><span class="n">1</span><div><div class="product">Cleanse: CeraVe Foaming Cleanser</div><div class="small muted">For oily skin. Use CeraVe Hydrating Cleanser instead if your skin feels tight or dry.</div></div></div>
+        <div class="step"><span class="n">2</span><div><div class="product">Under eyes: The Ordinary Caffeine Solution 5% + EGCG</div><div class="small muted">A tiny drop under each eye, tapped in with your ring finger. Targets eye puffiness. Keep it in the fridge for extra de-puffing.</div></div></div>
+        <div class="step"><span class="n">3</span><div><div class="product">Serum: The Ordinary Niacinamide 10% + Zinc 1%</div><div class="small muted">2–3 drops over the face. Controls oil, shrinks the look of pores and evens out dark marks.</div></div></div>
+        <div class="step"><span class="n">4</span><div><div class="product">Moisturise: CeraVe PM Facial Moisturising Lotion</div><div class="small muted">Light, won't clog pores. Works morning and night despite the name.</div></div></div>
+        <div class="step"><span class="n">5</span><div><div class="product">SPF: La Roche-Posay Anthelios UVMune 400 Invisible Fluid SPF50+</div><div class="small muted">Yes, even in Galway. Prevents dark spots and uneven tone. This one goes on clear with no white cast.</div></div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <span class="tag accent">Night · 2 min</span>
+      <div style="display:grid;gap:14px;margin-top:12px">
+        <div class="step"><span class="n">1</span><div><div class="product">Cleanse</div><div class="small muted">Same cleanser. Wash off sweat from the gym and kitchen grease from work.</div></div></div>
+        <div class="step"><span class="n">2</span><div><div class="product">Treat (from week 2): The Ordinary Azelaic Acid Suspension 10%</div><div class="small muted">3 nights a week to start (Mon/Wed/Fri), then nightly if your skin is happy. Fades dark marks and razor-bump spots and smooths texture. Gentle on darker skin.</div></div></div>
+        <div class="step"><span class="n">3</span><div><div class="product">Moisturise</div><div class="small muted">Same CeraVe moisturiser.</div></div></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h3>Beard &amp; shaving</h3>
+        <p class="small muted">Shave with the grain, use a fresh blade and shaving gel, and finish with moisturiser. If you get bumps, the azelaic acid helps.</p>
+      </div>
+      <div class="card">
+        <h3>Optional extras</h3>
+        <p class="small muted">An ice roller or gua sha for the morning (a cold spoon also works). A lip balm. A clean pillowcase twice a week.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      If your face stays swollen even after cutting salt and alcohol, or your ankles or eyes swell too, see a GP to rule out allergies, thyroid or kidney issues.
+    </div>
+  </section>
+
+  <!-- TODAY -->
+  <section role="tabpanel" id="tab-today" aria-labelledby="t-today" hidden>
+    <h2>Today's checklist</h2>
+    <p class="muted small" id="today-date"></p>
+    <div class="card">
+      <div class="progress" aria-hidden="true"><div id="bar"></div></div>
+      <p class="small muted" id="score" style="margin-bottom:6px"></p>
+      <ul class="check" id="checklist">
+        <li><label><input type="checkbox" data-k="train"> Gym session, or the day's walk / rest</label></li>
+        <li><label><input type="checkbox" data-k="steps"> 8–10k steps</label></li>
+        <li><label><input type="checkbox" data-k="protein"> Hit protein target</label></li>
+        <li><label><input type="checkbox" data-k="kcal"> Stayed around calorie target</label></li>
+        <li><label><input type="checkbox" data-k="water"> 2.5–3 L water</label></li>
+        <li><label><input type="checkbox" data-k="boojum"> Lean bowl at work (no nachos / chips)</label></li>
+        <li><label><input type="checkbox" data-k="drinks"> No alcohol or fizzy drinks</label></li>
+        <li><label><input type="checkbox" data-k="am"> Morning skincare</label></li>
+        <li><label><input type="checkbox" data-k="pm"> Night skincare</label></li>
+        <li><label><input type="checkbox" data-k="sleep"> 7+ hours sleep</label></li>
+      </ul>
+    </div>
+    <p class="small muted">Ticks are saved on this device only and reset each day. Aim for 8/10 most days. Perfect isn't the goal; consistent is.</p>
+  </section>
+
+  <footer>
+    General fitness and nutrition guidance, not medical advice. If you have a health condition, injury or take medication, check with a GP before starting.
+  </footer>
+</div>
+
+<script>
+(function () {
+  // Tabs
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  function showTab(btn) {
+    tabs.forEach(function (t) {
+      var on = t === btn;
+      t.setAttribute('aria-selected', on);
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    try { localStorage.setItem('plan.tab', btn.id); } catch (e) {}
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () { showTab(t); window.scrollTo({ top: 0 }); });
+  });
+  try {
+    var saved = localStorage.getItem('plan.tab');
+    if (saved && document.getElementById(saved)) showTab(document.getElementById(saved));
+  } catch (e) {}
+
+  // Calculator
+  var kg = document.getElementById('kg'), act = document.getElementById('act');
+  function calc() {
+    var w = parseFloat(kg.value);
+    if (!w || w < 40 || w > 250) {
+      ['o-kcal', 'o-pro', 'o-water'].forEach(function (id) { document.getElementById(id).textContent = '—'; });
+      return;
+    }
+    var kcal = Math.round((w * parseFloat(act.value) - 500) / 50) * 50;
+    var pro = Math.round(w * 1.8 / 5) * 5;
+    var water = Math.min(4, Math.max(2.5, w * 0.033)).toFixed(1);
+    document.getElementById('o-kcal').textContent = kcal.toLocaleString();
+    document.getElementById('o-pro').textContent = pro + ' g';
+    document.getElementById('o-water').textContent = water + ' L';
+    try { localStorage.setItem('plan.kg', kg.value); localStorage.setItem('plan.act', act.value); } catch (e) {}
+  }
+  try {
+    if (localStorage.getItem('plan.kg')) kg.value = localStorage.getItem('plan.kg');
+    if (localStorage.getItem('plan.act')) act.value = localStorage.getItem('plan.act');
+  } catch (e) {}
+  kg.addEventListener('input', calc);
+  act.addEventListener('change', calc);
+  calc();
+
+  // Weekly progression
+  var weeks = {
+    1: { note: '<strong>Week 1: learn it.</strong> 3 sets of everything. Leave 2–3 reps in the tank and nail the form. Steps: 8,000/day. Don\'t chase sweat; build the habit.', sets: 3, fin: '10 min', iv: '8 rounds', walk: '40 min' },
+    2: { note: '<strong>Week 2: push it.</strong> Same exercises, more weight or 1–2 more reps than week 1. Steps: 9,000/day.', sets: 3, fin: '12 min', iv: '9 rounds', walk: '45 min' },
+    3: { note: '<strong>Week 3: add volume.</strong> 4 sets on the first two exercises of each day. Leave 1–2 reps in the tank. Steps: 10,000/day.', sets: 4, fin: '15 min', iv: '10 rounds', walk: '50 min' },
+    4: { note: '<strong>Week 4: peak.</strong> Keep 4 sets and try to beat your week 3 weights. Steps: 10,000+/day. End of the week: photos, waist and weight. Then repeat weeks 2–4 with heavier weights.', sets: 4, fin: '15 min', iv: '10 rounds', walk: '50 min' }
+  };
+  var weekBtns = Array.prototype.slice.call(document.querySelectorAll('[data-week]'));
+  function setWeek(n) {
+    var w = weeks[n];
+    weekBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.week === String(n)); });
+    document.getElementById('week-note').innerHTML = w.note;
+    document.querySelectorAll('[data-sets]').forEach(function (td) {
+      td.textContent = td.textContent.replace(/^\d+/, w.sets);
+    });
+    document.querySelectorAll('[data-finisher]').forEach(function (td) { td.textContent = w.fin; });
+    document.getElementById('intervals').textContent = w.iv;
+    document.getElementById('sat-walk').textContent = w.walk;
+    try { localStorage.setItem('plan.week', n); } catch (e) {}
+  }
+  weekBtns.forEach(function (b) { b.addEventListener('click', function () { setWeek(b.dataset.week); }); });
+  var startWeek = 1;
+  try { startWeek = localStorage.getItem('plan.week') || 1; } catch (e) {}
+  setWeek(weeks[startWeek] ? startWeek : 1);
+
+  // Daily checklist
+  var today = new Date();
+  var key = 'plan.check.' + today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  document.getElementById('today-date').textContent = today.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' });
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('#checklist input'));
+  var state = {};
+  try { state = JSON.parse(localStorage.getItem(key)) || {}; } catch (e) {}
+  function render() {
+    var done = boxes.filter(function (b) { return b.checked; }).length;
+    document.getElementById('bar').style.width = (done / boxes.length * 100) + '%';
+    document.getElementById('score').textContent = done + ' / ' + boxes.length + ' done';
+  }
+  boxes.forEach(function (b) {
+    b.checked = !!state[b.dataset.k];
+    b.addEventListener('change', function () {
+      state[b.dataset.k] = b.checked;
+      try {
+        localStorage.setItem(key, JSON.stringify(state));
+        Object.keys(localStorage).forEach(function (k) {
+          if (k.indexOf('plan.check.') === 0 && k !== key) localStorage.removeItem(k);
+        });
+      } catch (e) {}
+      render();
+    });
+  });
+  render();
+})();
+</script>
+</body>
+</html>
